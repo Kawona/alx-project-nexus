@@ -1,5 +1,3 @@
-// src/pages/WatchlistPage.tsx
-import React from "react";
 import { Navigate } from "react-router-dom";
 import { useWatchlist } from "../context/WatchlistContext";
 import { useAuth } from "../context/AuthContext";

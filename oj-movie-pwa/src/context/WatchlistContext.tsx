@@ -1,4 +1,3 @@
-// src/context/WatchlistContext.tsx
 import React, { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import type { FullMovie } from "../services/movieApi";

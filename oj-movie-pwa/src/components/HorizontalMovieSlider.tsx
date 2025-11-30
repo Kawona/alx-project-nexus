@@ -1,4 +1,3 @@
-import React from "react";
 import MovieCard from "./ui/MovieCard";
 import type { MovieCardProps } from "./ui/MovieCard";
 

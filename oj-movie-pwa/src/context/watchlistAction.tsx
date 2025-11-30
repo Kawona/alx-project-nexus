@@ -1,4 +1,3 @@
-import React from "react";
 import type { FullMovie } from "../services/movieApi";
 import { useAuth } from "../context/AuthContext";
 import { useWatchlist } from "../context/WatchlistContext";

@@ -1,4 +1,3 @@
-import React from "react";
 import CastCard from "./CastCard";
 
 interface CastMember {

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../src/context/AuthContext";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { signUp, signIn } = useAuth();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -12,10 +12,10 @@ export default function SignUpPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validation
+    // Basic validation
     if (!name || !email || !password || !confirmPassword) {
       setError("All fields are required.");
       return;
@@ -31,11 +31,17 @@ export default function SignUpPage() {
       return;
     }
 
-    // Mock sign-up 
-    const newUser = { name, email };
-    localStorage.setItem("user", JSON.stringify(newUser));
+    // Create the user using AuthContext
+    const err = await signUp(name, email, password);
 
-    login(email); 
+    if (err) {
+      setError(err);
+      return;
+    }
+
+    // Immediately sign the user in after creating account
+    await signIn(email, password);
+
     navigate("/"); 
   };
 
@@ -53,7 +59,6 @@ export default function SignUpPage() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-
           {/* Name */}
           <div className="flex flex-col">
             <label className="mb-1 text-gray-300">Full Name</label>

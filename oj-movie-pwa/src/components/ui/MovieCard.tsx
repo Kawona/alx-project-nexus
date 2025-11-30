@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { addToWatchlist } from "../../utils/watchlist";

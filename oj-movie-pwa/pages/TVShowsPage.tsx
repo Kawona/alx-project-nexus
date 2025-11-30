@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import MovieCard from "../src/components/ui/MovieCard";
 import type { MovieCardProps } from "../src/services/movieApi";
 
-// Placeholder TV shows with genre added
+// Placeholder TV shows (genres removed because MovieCardProps does not support it)
 const dummyTVShows: MovieCardProps[] = [
-  { id: 101, title: "Stranger Things", poster: "/stranger-things.jpg", year: "2016", rating: 8.7, genre: ["Sci-Fi", "Drama"] },
-  { id: 102, title: "Breaking Bad", poster: "/breaking-bad.jpg", year: "2008", rating: 9.5, genre: ["Crime", "Drama"] },
-  { id: 103, title: "The Witcher", poster: "/witcher.jpg", year: "2019", rating: 8.2, genre: ["Fantasy", "Action"] },
-  { id: 104, title: "Money Heist", poster: "/money-heist.jpg", year: "2017", rating: 8.3, genre: ["Crime", "Thriller"] },
-  { id: 105, title: "The Mandalorian", poster: "/mandalorian.jpg", year: "2019", rating: 8.8, genre: ["Action", "Adventure", "Sci-Fi"] },
-  { id: 106, title: "Loki", poster: "/loki.jpg", year: "2021", rating: 8.2, genre: ["Action", "Fantasy", "Adventure"] },
+  { id: 101, title: "Stranger Things", poster: "/stranger-things.jpg", year: "2016", rating: 8.7 },
+  { id: 102, title: "Breaking Bad", poster: "/breaking-bad.jpg", year: "2008", rating: 9.5 },
+  { id: 103, title: "The Witcher", poster: "/witcher.jpg", year: "2019", rating: 8.2 },
+  { id: 104, title: "Money Heist", poster: "/money-heist.jpg", year: "2017", rating: 8.3 },
+  { id: 105, title: "The Mandalorian", poster: "/mandalorian.jpg", year: "2019", rating: 8.8 },
+  { id: 106, title: "Loki", poster: "/loki.jpg", year: "2021", rating: 8.2 },
 ];
 
 export default function TVShowsPage() {
   const [tvShows, setTVShows] = useState<MovieCardProps[]>([]);
 
   useEffect(() => {
-    // Simulate fetch
     setTVShows(dummyTVShows);
   }, []);
 
@@ -35,7 +34,6 @@ export default function TVShowsPage() {
             poster={show.poster}
             rating={show.rating}
             year={show.year}
-            genre={show.genre} // <-- added
           />
         ))}
       </div>
