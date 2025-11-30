@@ -1,11 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
-import type { FullMovie } from "../services/movieApi";
+import type { MovieCardProps } from "../services/movieApi";
 import { useAuth } from "./AuthContext";
 
 type WatchlistContextType = {
-  watchlist: FullMovie[];
-  addToWatchlist: (movie: FullMovie) => boolean;
+  watchlist: MovieCardProps[];
+  addToWatchlist: (movie: MovieCardProps) => boolean;
   removeFromWatchlist: (id: number) => void;
   isInWatchlist: (id: number) => boolean;
   clearWatchlist: () => void;
@@ -16,7 +16,7 @@ const WatchlistContext = createContext<WatchlistContextType | null>(null);
 const STORAGE_KEY = "watchlist_v1";
 
 export const WatchlistProvider = ({ children }: { children: ReactNode }) => {
-  const [watchlist, setWatchlist] = useState<FullMovie[]>([]);
+  const [watchlist, setWatchlist] = useState<MovieCardProps[]>([]);
   const auth = useAuth();
 
   useEffect(() => {
@@ -36,19 +36,17 @@ export const WatchlistProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [watchlist]);
 
-  const addToWatchlist = (movie: FullMovie) => {
-    if (!auth || !auth.user) {
-      // consumer should call auth.requireAuth before calling addToWatchlist,
-      // but we also protect here
-      return false;
-    }
+  const addToWatchlist = (movie: MovieCardProps) => {
+    if (!auth || !auth.user) return false;
+
     if (watchlist.some((m) => m.id === movie.id)) return false;
-    setWatchlist((s) => [movie, ...s]);
+
+    setWatchlist((prev) => [movie, ...prev]);
     return true;
   };
 
   const removeFromWatchlist = (id: number) => {
-    setWatchlist((s) => s.filter((m) => m.id !== id));
+    setWatchlist((prev) => prev.filter((m) => m.id !== id));
   };
 
   const isInWatchlist = (id: number) => watchlist.some((m) => m.id === id);
@@ -57,11 +55,17 @@ export const WatchlistProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <WatchlistContext.Provider
-      value={{ watchlist, addToWatchlist, removeFromWatchlist, isInWatchlist, clearWatchlist }}
+      value={{
+        watchlist,
+        addToWatchlist,
+        removeFromWatchlist,
+        isInWatchlist,
+        clearWatchlist,
+      }}
     >
       {children}
     </WatchlistContext.Provider>
   );
 };
 
-export const useWatchlist = () => useContext(WatchlistContext);
+export const useWatchlist = () => useContext(WatchlistContext)!;
