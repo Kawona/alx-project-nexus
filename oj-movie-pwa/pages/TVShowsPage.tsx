@@ -2,15 +2,52 @@ import { useEffect, useState } from "react";
 import MovieCard from "../src/components/ui/MovieCard";
 import type { MovieCardProps } from "../src/services/movieApi";
 
-// Placeholder TV shows (genres removed because MovieCardProps does not support it)
+
 const dummyTVShows: MovieCardProps[] = [
-  { id: 101, title: "Stranger Things", poster: "/stranger-things.jpg", year: "2016", rating: 8.7 },
-  { id: 102, title: "Breaking Bad", poster: "/breaking-bad.jpg", year: "2008", rating: 9.5 },
-  { id: 103, title: "The Witcher", poster: "/witcher.jpg", year: "2019", rating: 8.2 },
-  { id: 104, title: "Money Heist", poster: "/money-heist.jpg", year: "2017", rating: 8.3 },
-  { id: 105, title: "The Mandalorian", poster: "/mandalorian.jpg", year: "2019", rating: 8.8 },
-  { id: 106, title: "Loki", poster: "/loki.jpg", year: "2021", rating: 8.2 },
+  {
+    id: 66732, 
+    title: "Stranger Things",
+    poster: "https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg",
+    year: "2016",
+    rating: 8.7,
+  },
+  {
+    id: 1396, 
+    title: "Breaking Bad",
+    poster: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
+    year: "2008",
+    rating: 9.5,
+  },
+  {
+    id: 71912, 
+    title: "The Witcher",
+    poster: "https://image.tmdb.org/t/p/w500/zrPpUlehQaBf8YX2NrVrKK8IEpf.jpg",
+    year: "2019",
+    rating: 8.2,
+  },
+  {
+    id: 71446, 
+    title: "Money Heist",
+    poster: "https://image.tmdb.org/t/p/w500/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg",
+    year: "2017",
+    rating: 8.3,
+  },
+  {
+    id: 82856, 
+    title: "The Mandalorian",
+    poster: "https://image.tmdb.org/t/p/w500/sWgBv7LV2PRoQgkxwlibdGXKz1S.jpg",
+    year: "2019",
+    rating: 8.8,
+  },
+  {
+    id: 84958, 
+    title: "Loki",
+    poster: "https://image.tmdb.org/t/p/w500/KElc5ghehGetXoeH0N1grbV1hX.jpg",
+    year: "2021",
+    rating: 8.2,
+  },
 ];
+
 
 export default function TVShowsPage() {
   const [tvShows, setTVShows] = useState<MovieCardProps[]>([]);
