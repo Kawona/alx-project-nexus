@@ -20,7 +20,7 @@ export default function Header() {
 
       {/* Logo */}
       <Link to="/" className="text-2xl font-bold text-yellow-400">
-        MovieApp
+        OJ Movie App
       </Link>
 
       {/* Search */}
