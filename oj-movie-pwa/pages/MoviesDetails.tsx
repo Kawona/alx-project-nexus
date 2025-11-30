@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { Play, Plus, ThumbsUp } from "lucide-react";
 import { Button } from "../src/components/Button";
 
@@ -18,13 +18,13 @@ import {
 import { useWatchlist } from "../src/context/WatchlistContext";
 import { useAuth } from "../src/context/AuthContext";
 
-// FIXED Movie Interface
+
 interface Movie {
   id: number;
   title: string;
   year: string;
-  rating: number; // FIXED (was string)
-  duration?: string; // FIXED (optional, API does not provide it)
+  rating: number;
+  duration?: string;
   genre: string[];
   description: string;
   banner: string;
@@ -33,7 +33,6 @@ interface Movie {
   cast: CastMemberResponse[];
 }
 
-// FIXED Similar Movie Interface
 interface SimilarMovieCard {
   id: number;
   title: string;
@@ -53,24 +52,23 @@ export default function MovieDetails() {
 
   const watchlist = useWatchlist();
   const auth = useAuth();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!id) return;
 
     const loadMovieData = async () => {
       setLoading(true);
+
       try {
         const data: MovieDetailsResponse = await fetchMovieDetails(Number(id));
 
-        // FIX rating, description, genres, banner fallback
         const movieData: Movie = {
           id: data.id,
           title: data.title,
           year: data.year ?? "N/A",
-          rating: data.rating ?? 0, // FIX: Always number
-          duration: data.duration ?? undefined, // FIX optional field
-          genre: data.genres ?? [], // FIX: array fallback
+          rating: data.rating ?? 0,
+          duration: data.duration ?? undefined,
+          genre: data.genres ?? [],
           description: data.description ?? "No description available.",
           banner: data.banner || data.poster,
           poster: data.poster,
@@ -80,23 +78,22 @@ export default function MovieDetails() {
 
         setMovie(movieData);
 
-        // Load Similar Movies
         const similar: SimilarMovieResponse[] = await fetchSimilarMovies(Number(id));
 
         const mappedSimilar: SimilarMovieCard[] = similar.map((m) => ({
           id: m.id,
           title: m.title,
           poster: m.poster,
-          rating: m.rating ?? 0, // FIX: number only
+          rating: m.rating ?? 0,
           release_date: m.year ?? "Unknown",
         }));
 
         setSimilarMovies(mappedSimilar);
 
-        // Auto-play trailer if ?trailer=true
         if (searchParams.get("trailer") === "true" && movieData.trailer) {
           setPlayTrailer(true);
         }
+
       } catch (err) {
         console.error("Failed to load movie:", err);
         setMovie(null);
@@ -108,17 +105,20 @@ export default function MovieDetails() {
     loadMovieData();
   }, [id, searchParams]);
 
-  if (loading)
+  if (loading) {
     return <div className="text-white text-center mt-20">Loading...</div>;
+  }
 
-  if (!movie)
+  if (!movie) {
     return <div className="text-white text-center mt-20">Movie not found.</div>;
+  }
 
   const isAdded = watchlist?.isInWatchlist(movie.id) ?? false;
 
   const handleToggleWatchlist = () => {
     auth.requireAuth(() => {
       if (!watchlist) return;
+
       if (isAdded) {
         watchlist.removeFromWatchlist(movie.id);
       } else {
@@ -129,7 +129,7 @@ export default function MovieDetails() {
 
   return (
     <div className="bg-black text-white min-h-screen">
-      {/* HERO */}
+      {/* HERO SECTION */}
       <div
         className="relative w-full h-[75vh] bg-cover bg-center"
         style={{ backgroundImage: `url(${movie.banner})` }}
@@ -138,6 +138,7 @@ export default function MovieDetails() {
 
         <div className="absolute bottom-16 left-10 max-w-xl">
           <div className="flex items-start gap-6">
+
             <img
               src={movie.poster}
               alt={movie.title}
@@ -186,7 +187,11 @@ export default function MovieDetails() {
                   {isAdded ? "Remove from Watchlist" : "Add to Watchlist"}
                 </Button>
 
-                <Button variant="secondary" size="md" icon={ThumbsUp}>
+                <Button
+                  variant="secondary"
+                  size="md"
+                  icon={ThumbsUp}
+                >
                   Like
                 </Button>
               </div>
@@ -200,7 +205,7 @@ export default function MovieDetails() {
         <TrailerSection youtubeKey={movie.trailer} title={movie.title} />
       )}
 
-      {/* CAST */}
+      {/* CAST SECTION */}
       <CastSection cast={movie.cast} />
 
       {/* SIMILAR MOVIES */}
