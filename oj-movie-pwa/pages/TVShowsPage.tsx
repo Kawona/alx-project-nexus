@@ -39,13 +39,6 @@ const dummyTVShows: MovieCardProps[] = [
     year: "2019",
     rating: 8.8,
   },
-  {
-    id: 84958, 
-    title: "Loki",
-    poster: "https://image.tmdb.org/t/p/w500/KElc5ghehGetXoeH0N1grbV1hX.jpg",
-    year: "2021",
-    rating: 8.2,
-  },
 ];
 
 
