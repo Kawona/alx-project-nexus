@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { fetchMoviesByGenre } from "../src/services/movieApi";
 import MovieCard from "../src/components/ui/MovieCard";
 import type { MovieCardProps } from "../src/types/MovieCardProps";

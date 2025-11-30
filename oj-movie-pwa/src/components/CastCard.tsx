@@ -1,4 +1,3 @@
-
 interface CastCardProps {
   name: string;
   role: string;

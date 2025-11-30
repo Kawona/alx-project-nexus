@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import MovieCard from "../components/ui/MovieCard";
 import type { MovieCardProps } from "../services/movieApi";
 import { getWatchlist, removeFromWatchlist } from "../utils/watchlist";

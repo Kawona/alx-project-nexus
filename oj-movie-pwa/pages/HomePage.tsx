@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Hero from "../src/components/Hero";
 import HorizontalMovieSlider from "../src/components/HorizontalMovieSlider";
 import type { MovieCardProps } from "../src/services/movieApi";

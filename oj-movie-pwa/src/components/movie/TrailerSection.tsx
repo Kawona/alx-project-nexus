@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaPlay } from "react-icons/fa";
 
 interface TrailerSectionProps {
