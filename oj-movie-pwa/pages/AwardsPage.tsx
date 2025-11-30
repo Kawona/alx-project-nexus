@@ -9,7 +9,6 @@ interface Award {
   featured?: boolean;
 }
 
-// Dummy data for demonstration
 const dummyAwards: Award[] = [
   {
     id: 1,
@@ -65,7 +64,7 @@ export default function AwardsPage() {
         Awards & Events
       </h1>
 
-      {/* Year Filter */}
+      {/* YEAR FILTER */}
       <div className="flex gap-3 mb-6 justify-center flex-wrap">
         {years.map((y) => (
           <button
@@ -80,10 +79,12 @@ export default function AwardsPage() {
         ))}
       </div>
 
-      {/* Featured Awards Slider */}
+      {/* FEATURED AWARDS */}
       {featuredAwards.length > 0 && (
         <div className="mb-10">
-          <h2 className="text-2xl font-bold text-yellow-400 mb-4">Featured Awards</h2>
+          <h2 className="text-2xl font-bold text-yellow-400 mb-4">
+            Featured Awards
+          </h2>
           <div className="flex space-x-4 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory">
             {featuredAwards.map((award) => (
               <div
@@ -104,7 +105,7 @@ export default function AwardsPage() {
         </div>
       )}
 
-      {/* All Awards Grid */}
+      {/* ALL AWARDS GRID */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
         {filteredAwards.map((award) => (
           <div
@@ -123,7 +124,7 @@ export default function AwardsPage() {
         ))}
       </div>
 
-      {/* Award Details Modal */}
+      {/* MODAL */}
       {selectedAward && (
         <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50">
           <div className="bg-[#1a1a1a] p-6 rounded-lg max-w-md w-full relative">
@@ -133,11 +134,13 @@ export default function AwardsPage() {
             >
               ✕
             </button>
+
             <img
               src={selectedAward.image}
               alt={selectedAward.title}
               className="w-full h-56 object-cover rounded-lg mb-4"
             />
+
             <h2 className="text-xl font-bold text-yellow-400">{selectedAward.title}</h2>
             <p className="text-gray-300 mt-2">{selectedAward.description}</p>
             <p className="text-gray-400 text-sm mt-1">{selectedAward.year}</p>
