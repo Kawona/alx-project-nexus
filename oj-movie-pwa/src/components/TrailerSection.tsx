@@ -1,24 +1,24 @@
 interface TrailerSectionProps {
-    youtubeKey: string;  // Can be a YouTube key or full URL
+    youtubeKey: string;  
     title: string;
 }
 
 const TrailerSection: React.FC<TrailerSectionProps> = ({ youtubeKey, title }) => {
 
-    // Detect if the value is a full YouTube URL or a simple key
+    
     let videoId = youtubeKey;
 
     try {
-        // If it's a full YouTube URL (e.g. https://youtube.com/watch?v=XXXX)
+        
         if (youtubeKey.includes("youtube.com") || youtubeKey.includes("youtu.be")) {
             const url = new URL(youtubeKey);
             videoId =
-                url.searchParams.get("v") ||       // youtube.com/watch?v=xxxx
-                url.pathname.split("/").pop() ||   // youtu.be/xxxx
+                url.searchParams.get("v") ||       
+                url.pathname.split("/").pop() ||   
                 youtubeKey;
         }
     } catch (e) {
-        // If URL parsing fails, fallback to raw key
+        
         videoId = youtubeKey;
     }
 
